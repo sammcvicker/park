@@ -17,8 +17,9 @@ Park is a lightweight, memory-efficient terminal-based viewer for inspecting lar
 # Install directly from the repository
 pip install .
 
-# Or install with development dependencies
-pip install -e ".[dev]"
+# Or build and install globally
+uv build
+pipx install dist/<the-whl>
 ```
 
 ## Usage
