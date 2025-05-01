@@ -3,4 +3,4 @@ dist/
 test.parquet
 *.lock
 .env
-__pycache__/
+__pycache__
