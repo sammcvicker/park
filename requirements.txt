@@ -1,4 +1,0 @@
-click>=8.0.0
-pandas>=1.3.0
-pyarrow>=7.0.0
-psutil>=5.9.0 
