@@ -9,16 +9,12 @@ It provides utilities like:
   - without any list of ints, just shows the count of the rows in the file, otherwise only shows the provided rows
 - `--columns (-c) <optional list of ints>`
   - without any list of ints, just shows the count of the columns in the file, otherwise only shows the provided columns
-- `--hide-headers (-h)`
-  - Toggles whether headers (name and type information) are shown in the output
 - `--sample (-s) <number of rows>`
   - Controls how many sample rows to display when showing columns (default: 5)
 - `--max-columns (-m) <number of columns>`
   - Limits the number of columns displayed to avoid "line too long" errors (default: auto-calculated based on terminal width)
 - `--width (-w) <width in characters>`
   - Forces a specific output width instead of auto-detection (default: auto-detected terminal width)
-- `--col-width (-cw) <width in characters>`
-  - Sets the average width per column (default: 15 characters)
 
 ## Installation
 
@@ -47,11 +43,8 @@ park your-file.parquet -m 10
 # Set display width to 100 characters
 park your-file.parquet -w 100
 
-# Set average column width to 10 characters (to fit more columns on screen)
-park your-file.parquet -cw 10
-
 # Combined options
-park your-file.parquet -r 5 -c column_name -h -m 15
+park your-file.parquet -r 5 -c column_name -m 15
 ```
 
 ## Memory Efficiency
