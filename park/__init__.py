@@ -3,3 +3,5 @@ Park - A Python CLI for inspecting large parquet files in a memory efficient man
 """
 
 __version__ = "0.1.0"
+
+from .cli import main

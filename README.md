@@ -1,57 +1,68 @@
 # Park
 
-Park is a Python CLI for inspecting large parquet files in a memory efficient manner.
+Park is a lightweight, memory-efficient terminal-based viewer for inspecting large parquet files. It provides an interactive interface that lets you navigate through columns and rows without loading the entire file into memory.
 
 ## Features
 
-It provides utilities like:
-- `--rows (-r) <optional list of ints>`
-  - without any list of ints, just shows the count of the rows in the file, otherwise only shows the provided rows
-- `--columns (-c) <optional list of ints>`
-  - without any list of ints, just shows the count of the columns in the file, otherwise only shows the provided columns
-- `--sample (-s) <number of rows>`
-  - Controls how many sample rows to display when showing columns (default: 5)
-- `--max-columns (-m) <number of columns>`
-  - Limits the number of columns displayed to avoid "line too long" errors (default: auto-calculated based on terminal width)
-- `--width (-w) <width in characters>`
-  - Forces a specific output width instead of auto-detection (default: auto-detected terminal width)
+- **Terminal-based UI**: Navigate through your data with intuitive keyboard controls
+- **Memory Efficient**: Only loads the data you're viewing, with smart caching for smooth scrolling
+- **Column Type Information**: Displays column data types from the parquet schema
+- **Dynamic Resizing**: Automatically adapts to your terminal size
+- **Resource Monitoring**: Shows current memory usage while browsing
+- **Null Value Highlighting**: Visually distinguishes between string "None" and actual null values (displayed in bold red)
 
 ## Installation
 
 ```bash
+# Install directly from the repository
 pip install .
+
+# Or install with development dependencies
+pip install -e ".[dev]"
 ```
 
 ## Usage
 
 ```bash
-# Show number of rows and columns
-park your-file.parquet
-
-# Show specific rows
-park your-file.parquet -r 0 10 20
-
-# Show specific columns
-park your-file.parquet -c column_name1 column_name2
-
-# Show 10 sample rows when displaying columns
-park your-file.parquet -c column_name1 -s 10
-
-# Limit display to 10 columns
-park your-file.parquet -m 10
-
-# Set display width to 100 characters
-park your-file.parquet -w 100
-
-# Combined options
-park your-file.parquet -r 5 -c column_name -m 15
+# Launch Park with a parquet file
+park your_file.parquet
 ```
+
+## Keyboard Controls
+
+| Key  | Action |
+| ---- | ------ |
+| `h`  | Move one column left |
+| `l`  | Move one column right |
+| `j`  | Move one row down |
+| `k`  | Move one row up |
+| `H`  | Move one page of columns left |
+| `L`  | Move one page of columns right |
+| `J`  | Move one page of rows down |
+| `K`  | Move one page of rows up |
+| `r`  | Refresh display (clears cache) |
+| `q`  | Quit |
 
 ## Memory Efficiency
 
-Park is designed to work with large parquet files by:
+Park is designed to work with extremely large parquet files by:
+
 1. Reading metadata without loading the entire file
-2. Processing data in batches
-3. Only loading the specific rows and columns requested
-4. Automatically limiting displayed columns to fit your terminal
-5. Truncating large values and data types to improve display
+2. Loading only the visible portion of data
+3. Implementing smart caching with buffer zones for smooth scrolling
+4. Freeing memory proactively with garbage collection
+5. Limiting the maximum number of columns loaded at once
+
+## Dependencies
+
+- `pyarrow`: For parquet file handling
+- `pandas`: For data manipulation and display
+- `click`: For command-line interface
+- `psutil`: For memory usage monitoring
+- `curses`: For terminal UI (built into Python standard library)
+
+## Limitations
+
+- Currently supports a single parquet file at a time
+- Terminal width affects how many columns can be displayed
+- Very wide columns may be truncated for display purposes
